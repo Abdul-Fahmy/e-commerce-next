@@ -1,5 +1,7 @@
 export type ProductsState = {
-  product: null | Product[];
+  products: null | Product[],
+  product : null | Product,
+  relatedProducts : null | Product[]
 };
 
 export interface ApiResponse {

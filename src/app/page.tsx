@@ -8,7 +8,7 @@ import { Product } from "@/types/products.types";
 import { useEffect } from "react";
 
 export default  function  Home() {
-const products = useAppSelector((store)=> store.productsReducer.product)
+const products = useAppSelector((store)=> store.productsReducer.products)
 const dispatch = useAppDispatch();
 
 useEffect(()=>{

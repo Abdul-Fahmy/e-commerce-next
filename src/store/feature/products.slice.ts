@@ -5,7 +5,9 @@ import axios from "axios";
 
 
 const initialState:ProductsState = {
-    product : null
+    products : null,
+    product: null,
+    relatedProducts: null,
 }
 export const getProducts = createAsyncThunk('products/getProducts', async ()=>{
     const options = {
@@ -16,6 +18,25 @@ export const getProducts = createAsyncThunk('products/getProducts', async ()=>{
     return data.data
 })
 
+export const getProductDetails = createAsyncThunk('product/getProductDetails', async (id:string)=>{
+    const options = {
+        url : `https://ecommerce.routemisr.com/api/v1/products/${id}`,
+        method: 'GET'
+    }
+    let {data} = await axios.request(options)
+    return data.data
+})
+
+export const getRelatedProducts = createAsyncThunk('relatedProducts/getRelatedProducts', async (id:string)=>{
+    const options = {
+        url :`https://ecommerce.routemisr.com/api/v1/products?category[in]=${id}`,
+        method: 'GET'
+    }
+
+    let {data} = await axios.request(options)
+    return data
+})
+
 
 
 const productsSlice = createSlice({
@@ -24,13 +45,35 @@ const productsSlice = createSlice({
     reducers:{},
     extraReducers: function (builder) {
         builder.addCase(getProducts.fulfilled,(state, action)=>{
-            state.product = action.payload
+            state.products = action.payload
             
         })
  builder.addCase(getProducts.rejected,(state, action)=>{
             console.log({state,action});
             
-        })        
+        }) 
+        
+        builder.addCase(getProductDetails.fulfilled, (state, action)=>{
+            console.log({state,action});
+            state.product = action.payload
+            
+        })
+
+        builder.addCase(getProductDetails.rejected, (state, action)=>{
+            console.log({state,action});
+            
+        })
+
+         builder.addCase(getRelatedProducts.fulfilled,(state, action)=>{
+            state.relatedProducts = action.payload.data.reverse()
+            console.log(state.relatedProducts);
+            
+            
+        })
+ builder.addCase(getRelatedProducts.rejected,(state, action)=>{
+            console.log({state,action});
+            
+        }) 
     }
 
 })

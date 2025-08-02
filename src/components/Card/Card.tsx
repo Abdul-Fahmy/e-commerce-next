@@ -53,7 +53,7 @@ export default function Card({productInfo}:{productInfo:Product}) {
         <div className="card-body space-y-2 px-3 py-2">
           <div className="card-header ">
             <h3 className="text-lg font-semibold text-gray-400 line-clamp-1">
-              <Link href={`/`}>{productInfo.title}</Link>
+              <Link href={`/product/${productInfo.id}`}>{productInfo.title}</Link>
             </h3>
             <h2 className="text-sm text-gray-600 ">{productInfo.category.name}</h2>
           </div>
