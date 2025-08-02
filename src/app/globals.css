@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+@layer components {
+  .form-control {
+    @apply w-full px-2 py-1 rounded-md border-solid border  border-gray-500  opacity-50 focus:outline-none focus:border-green-600;
+  }
+  .btn {
+    @apply py-2 px-4 rounded-md text-white;
+  }
+  .label-filter {
+    @apply border-solid border border-green-600 rounded-md py-1 px-2 cursor-pointer hover:bg-gray-50;
+  }
 }
 
 @theme inline {
@@ -12,6 +21,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +29,4 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+
