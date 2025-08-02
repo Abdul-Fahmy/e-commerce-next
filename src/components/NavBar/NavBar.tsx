@@ -1,14 +1,15 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useAppSelector } from "@/hooks/store.hook";
-import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import toast from "react-hot-toast";
+import { getCartInfo } from "@/store/feature/cart.slice";
 
 export default function NavBar() {
+  const dispatch = useAppDispatch();
+  const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
   const token = useAppSelector((state) => state.userReducer.token);
-  const router = useRouter();
   const [isUserHidden, setIsUserHidden] = useState("hidden");
 
   const [isMenuHidden, setIsMenuHidden] = useState("hidden");
@@ -32,7 +33,11 @@ export default function NavBar() {
     toast.success("logged out successfully");
     window.location.reload();
   };
-
+  useEffect(() => {
+    dispatch(getCartInfo());
+    console.log(cartInfo);
+    
+  }, []);
   return (
     <>
       <div className="nav py-3 shadow bg-slate-100 fixed top-0 left-0 right-0 z-50">
@@ -104,12 +109,19 @@ export default function NavBar() {
                 </li>
               </ul>
               <Link
-                href={"/"}
+                href={"/cart"}
                 className="hidden lg:inline-block cart cursor-pointer ml-auto relative"
               >
                 <i className="fa-solid fa-cart-shopping text-lg"></i>
-                <div className="cart-counter absolute h-5  w-5 rounded-full right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-green-600 text-white flex justify-center items-center ">
-                  <i className="fa-solid fa-spinner fa-spin"></i>
+                <div
+                  
+                  className="cart-counter absolute h-5  w-5 rounded-full right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-green-600 text-white flex justify-center items-center "
+                >
+                  {cartInfo === null ? (
+                    <i className="fa-solid fa-spinner fa-spin"></i>
+                  ) : (
+                    <span>{cartInfo.numOfCartItems}</span>
+                  )}
                 </div>
               </Link>
               <Link

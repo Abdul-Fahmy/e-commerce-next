@@ -94,17 +94,17 @@ export default function ProductDetails() {
                     slidesPerView: 3,
                   },
                   640: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                   },
                   860: {
-                    slidesPerView: 5,
+                    slidesPerView: 4,
                   },
                 }}
                 spaceBetween={20}
                 loop={true}
               >
                 {relatedProducts.map((product) => (
-                  <SwiperSlide key={product.id}>
+                  <SwiperSlide  key={product.id}>
                     <Card productInfo={product} />
                   </SwiperSlide>
                 ))}
@@ -117,6 +117,8 @@ export default function ProductDetails() {
       ) : (
         <Loading />
       )}
+
+      
     </>
   );
 }

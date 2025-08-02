@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const initialState: userState = {
-  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
+  token:  typeof window !== 'undefined' ? localStorage.getItem("token") : null,
   err: null,
 };
 

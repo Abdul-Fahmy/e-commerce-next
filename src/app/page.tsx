@@ -1,8 +1,12 @@
+
+
 import ProtectedRoutes from "@/components/ProtectedRoutes/ProtectedRoutes";
 
 import Products from "./(pages)/product/page";
 
 export default function Home() {
+
+
   return (
     <>
       <ProtectedRoutes>
