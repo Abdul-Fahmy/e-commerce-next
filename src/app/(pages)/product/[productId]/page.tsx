@@ -1,38 +1,42 @@
-'use client'
-import Card from '@/components/Card/Card'
-import Loading from '@/components/Loading/Loading'
-import { useAppDispatch, useAppSelector } from '@/hooks/store.hook'
-import { getProductDetails, getRelatedProducts } from '@/store/feature/products.slice'
-import { useParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+"use client";
+import Card from "@/components/Card/Card";
+import Loading from "@/components/Loading/Loading";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
+import {
+  getProductDetails,
+  getRelatedProducts,
+} from "@/store/feature/products.slice";
+import { useParams } from "next/navigation";
+import React, { useEffect } from "react";
 import ReactImageGallery from "react-image-gallery";
-import { Swiper,SwiperSlide } from 'swiper/react'
-import 'swiper/css'; 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 type Params = {
-productId: string
-}
+  productId: string;
+};
 
 export default function ProductDetails() {
+  let { productId } = useParams<Params>();
+  const dispatch = useAppDispatch();
+  const productDetails = useAppSelector(
+    (store) => store.productsReducer.product
+  );
+  const relatedProducts = useAppSelector(
+    (store) => store.productsReducer.relatedProducts
+  );
+  useEffect(() => {
+    dispatch(getProductDetails(productId));
+  }, []);
 
-    let {productId} = useParams<Params>()
-    const dispatch = useAppDispatch()
-    const productDetails = useAppSelector((store)=> store.productsReducer.product)
-    const relatedProducts = useAppSelector((store)=> store.productsReducer.relatedProducts)
-    useEffect(()=>{
-        dispatch(getProductDetails(productId))  
-              
-        
-    },[])
+  useEffect(() => {
+    if (productDetails === null) return;
 
-    useEffect(()=>{
-        if (productDetails === null) return 
-            
-        dispatch(getRelatedProducts(productDetails.category._id))
-    },[productDetails])
+    dispatch(getRelatedProducts(productDetails.category._id));
+  }, [productDetails]);
   return (
     <>
-     {productDetails ? (
+      {productDetails ? (
         <>
           <section className="md:grid md:grid-cols-12 md:gap-10 p-3 md:p-0">
             <div className="col-span-4">
@@ -98,8 +102,6 @@ export default function ProductDetails() {
                 }}
                 spaceBetween={20}
                 loop={true}
-                allowSlideNext = {true}
-                allowSlidePrev = {true}
               >
                 {relatedProducts.map((product) => (
                   <SwiperSlide key={product.id}>
@@ -114,6 +116,7 @@ export default function ProductDetails() {
         </>
       ) : (
         <Loading />
-      )}</>
-  )
+      )}
+    </>
+  );
 }

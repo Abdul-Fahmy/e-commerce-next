@@ -2,80 +2,75 @@ import { ProductsState } from "@/types/products.types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
-
-const initialState:ProductsState = {
-    products : null,
-    product: null,
-    relatedProducts: null,
-}
-export const getProducts = createAsyncThunk('products/getProducts', async ()=>{
+const initialState: ProductsState = {
+  products: null,
+  product: null,
+  relatedProducts: null,
+};
+export const getProducts = createAsyncThunk(
+  "products/getProducts",
+  async () => {
     const options = {
-        url:`https://ecommerce.routemisr.com/api/v1/products`,
-        method: 'GET'
-    }
-    let {data} = await axios.request(options)
-    return data.data
-})
+      url: `https://ecommerce.routemisr.com/api/v1/products`,
+      method: "GET",
+    };
+    let { data } = await axios.request(options);
+    return data.data;
+  }
+);
 
-export const getProductDetails = createAsyncThunk('product/getProductDetails', async (id:string)=>{
+export const getProductDetails = createAsyncThunk(
+  "product/getProductDetails",
+  async (id: string) => {
     const options = {
-        url : `https://ecommerce.routemisr.com/api/v1/products/${id}`,
-        method: 'GET'
-    }
-    let {data} = await axios.request(options)
-    return data.data
-})
+      url: `https://ecommerce.routemisr.com/api/v1/products/${id}`,
+      method: "GET",
+    };
+    let { data } = await axios.request(options);
+    return data.data;
+  }
+);
 
-export const getRelatedProducts = createAsyncThunk('relatedProducts/getRelatedProducts', async (id:string)=>{
+export const getRelatedProducts = createAsyncThunk(
+  "relatedProducts/getRelatedProducts",
+  async (id: string) => {
     const options = {
-        url :`https://ecommerce.routemisr.com/api/v1/products?category[in]=${id}`,
-        method: 'GET'
-    }
+      url: `https://ecommerce.routemisr.com/api/v1/products?category[in]=${id}`,
+      method: "GET",
+    };
 
-    let {data} = await axios.request(options)
-    return data
-})
-
-
+    let { data } = await axios.request(options);
+    return data;
+  }
+);
 
 const productsSlice = createSlice({
-    name: 'products',
-    initialState,
-    reducers:{},
-    extraReducers: function (builder) {
-        builder.addCase(getProducts.fulfilled,(state, action)=>{
-            state.products = action.payload
-            
-        })
- builder.addCase(getProducts.rejected,(state, action)=>{
-            console.log({state,action});
-            
-        }) 
-        
-        builder.addCase(getProductDetails.fulfilled, (state, action)=>{
-            console.log({state,action});
-            state.product = action.payload
-            
-        })
+  name: "products",
+  initialState,
+  reducers: {},
+  extraReducers: function (builder) {
+    builder.addCase(getProducts.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(getProducts.rejected, (state, action) => {
+      console.log({ state, action });
+    });
 
-        builder.addCase(getProductDetails.rejected, (state, action)=>{
-            console.log({state,action});
-            
-        })
+    builder.addCase(getProductDetails.fulfilled, (state, action) => {
+      state.product = action.payload;
+    });
 
-         builder.addCase(getRelatedProducts.fulfilled,(state, action)=>{
-            state.relatedProducts = action.payload.data.reverse()
-            console.log(state.relatedProducts);
-            
-            
-        })
- builder.addCase(getRelatedProducts.rejected,(state, action)=>{
-            console.log({state,action});
-            
-        }) 
-    }
+    builder.addCase(getProductDetails.rejected, (state, action) => {
+      console.log({ state, action });
+    });
 
-})
+    builder.addCase(getRelatedProducts.fulfilled, (state, action) => {
+      state.relatedProducts = action.payload.data;
+    });
+    builder.addCase(getRelatedProducts.rejected, (state, action) => {
+      console.log({ state, action });
+    });
+  },
+});
 
 export const productsReducer = productsSlice.reducer;

@@ -28,10 +28,9 @@ export default function NavBar() {
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
-      // router.push("/login");
-      toast.success("logged out successfully");
-      window.location.reload()
-    
+    // router.push("/login");
+    toast.success("logged out successfully");
+    window.location.reload();
   };
 
   return (
@@ -41,9 +40,9 @@ export default function NavBar() {
           <Link href={"/"}>
             <Image
               className="min-w-[150px]"
-              src='/assets/freshcart-logo.svg'
+              src="/assets/freshcart-logo.svg"
               alt="FreshCart Logo"
-              style={{width:'100',height:'auto'}}
+              style={{ width: "100", height: "auto" }}
               width={0}
               height={0}
               priority
@@ -68,7 +67,7 @@ export default function NavBar() {
                     className={`relative before:absolute before:w-0 before:h-0.5 before:bg-green-600 hover:before:w-full before:transition-[width] before:duration-300 before:left-0 before:-bottom-1 
                        
                       `}
-                    href={"/"}
+                    href={"/product"}
                   >
                     Products
                   </Link>
@@ -78,7 +77,7 @@ export default function NavBar() {
                     className={`relative before:absolute before:w-0 before:h-0.5 before:bg-green-600 hover:before:w-full before:transition-[width] before:duration-300 before:left-0 before:-bottom-1 
                        
                       `}
-                    href={"/"}
+                    href={"/categories"}
                   >
                     Categories
                   </Link>
