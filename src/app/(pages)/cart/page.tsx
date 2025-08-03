@@ -2,7 +2,7 @@
 import CartItem from "@/components/CartItem/CartItem"
 import Loading from "@/components/Loading/Loading"
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook"
-import { getCartInfo } from "@/store/feature/cart.slice"
+import { clearCart, getCartInfo } from "@/store/feature/cart.slice"
 import Link from "next/link"
 import { useEffect } from "react"
 
@@ -17,8 +17,8 @@ export default function Cart() {
     <>{cartInfo === null ? (
         <Loading />
       ) : (
-        <section className="my-8 px-4 md:px-0">
-          <div className="flex items-center gap-8 ">
+        <section className="my-8 px-4 ">
+          <div className="flex items-center gap-8 s">
             <i className="fa-brands fa-opencart text-2xl"></i>
             <h2 className="relative text-xl text-slate-600 font-semibold pl-4 before:absolute before:w-0.5 before:h-3/4 before:bg-slate-600 before:-left-1 before:top-1/2 before:-translate-y-1/2">
               Your Shopping Cart
@@ -50,7 +50,9 @@ export default function Cart() {
                   </span>
                 </p>
                 <button
-                //   onClick={clearCart}
+                  onClick={()=>{
+                    dispatch(clearCart())
+                  }}
                   className="btn flex justify-center items-center bg-red-500 hover:bg-red-600"
                 >
                   <i className="fa-solid fa-trash mr-2"></i> Clear Cart

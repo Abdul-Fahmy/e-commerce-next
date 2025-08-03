@@ -35,9 +35,9 @@ export default function NavBar() {
   };
   useEffect(() => {
     dispatch(getCartInfo());
-    console.log(cartInfo);
     
-  }, []);
+    
+  }, [cartInfo]);
   return (
     <>
       <div className="nav py-3 shadow bg-slate-100 fixed top-0 left-0 right-0 z-50">
@@ -102,7 +102,7 @@ export default function NavBar() {
                     className={`relative before:absolute before:w-0 before:h-0.5 before:bg-green-600 hover:before:w-full before:transition-[width] before:duration-300 before:left-0 before:-bottom-1 
                        
                       `}
-                    href={"/"}
+                    href={"/allorders"}
                   >
                     Orders
                   </Link>

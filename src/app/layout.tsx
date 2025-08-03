@@ -34,7 +34,7 @@ export default function RootLayout({
       >
         <Providers>
         <NavBar />
-        <div className="container min-h-[70vh] pb-10 pt-20 mx-auto">
+        <div className="container min-h-[70vh] pb-10 pt-20 mx-auto ">
         {children}
         </div>
         </Providers>
