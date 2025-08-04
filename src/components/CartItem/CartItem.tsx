@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/hooks/store.hook";
-import { removeItemFromCart } from "@/store/feature/cart.slice";
+import { removeItemFromCart, updateProductCount } from "@/store/feature/cart.slice";
 import { CartProductItem } from "@/types/cartInfo.types";
 import Link from "next/link";
 
@@ -25,17 +25,17 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
             <span className="text-xl font-bold text-gray-500">{cartInfo.count}</span>
             <div className="icons  space-y-2">
               <div
-                // onClick={() => {
-                //   updateProductCount({ productId: id, count: count + 1 });
-                // }}
+                onClick={() => {
+                  dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count + 1}))
+                }}
                 className="plus cursor-pointer w-8 h-8 rounded-full bg-gray-700 text-white flex justify-center items-center"
               >
                 <i className="fa-solid fa-plus"></i>
               </div>
               <div
-                // onClick={() => {
-                //   updateProductCount({ productId: id, count: count - 1 });
-                // }}
+                onClick={() => {
+                  dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count - 1}))
+                }}
                 className="minus cursor-pointer w-8 h-8 rounded-full bg-gray-700 text-white flex justify-center items-center"
               >
                 <i className="fa-solid fa-minus"></i>

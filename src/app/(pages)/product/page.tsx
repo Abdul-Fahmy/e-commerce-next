@@ -3,6 +3,7 @@
 import Card from "@/components/Card/Card";
 import Loading from "@/components/Loading/Loading";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
+import { getCartInfo } from "@/store/feature/cart.slice";
 import { getProducts } from "@/store/feature/products.slice";
 import { Product } from "@/types/products.types";
 import { useEffect } from "react";
@@ -13,6 +14,7 @@ export default function Products() {
 
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(getCartInfo())
   }, []);
   return (
     <>

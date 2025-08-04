@@ -47,7 +47,7 @@ export default function page() {
   });
   return (
     <>
-      <GuestRoute>
+      
         <div className="w-3/4 mx-auto">
       <h2 className="my-5 text-center md:text-start">Sign In Now :</h2>
       <form className="space-y-3 w-full" onSubmit={formik.handleSubmit}>
@@ -104,7 +104,7 @@ export default function page() {
         </button>
       </form>
       </div>
-      </GuestRoute>
+      
     </>
   );
 }

@@ -20,6 +20,12 @@ export const login = createAsyncThunk(
     return data;
   }
 );
+export const handleLogOut = () => {
+    localStorage.removeItem("token");
+    // router.push("/login");
+    toast.success("logged out successfully");
+    window.location.reload();
+  };
 
 const userSlice = createSlice({
   name: "user",

@@ -1,22 +1,16 @@
-'use client'
+"use client";
 
-import Loading from '@/components/Loading/Loading'
-import { Order } from '@/types/orders.types';
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import Loading from "@/components/Loading/Loading";
+import { Order } from "@/types/orders.types";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 export default function Orders() {
-
-
-
-
-
-
-const [orders, setOrdes] = useState([]);
-const token = localStorage.getItem('token')
-  let {id}:any = jwtDecode(token!);
+  const [orders, setOrdes] = useState<Order[] | null>(null);
+  const token = localStorage.getItem("token");
+  let { id }: any = jwtDecode(token!);
 
   // get user Orders
   async function getUserOrders() {
@@ -26,19 +20,18 @@ const token = localStorage.getItem('token')
         method: "GET",
       };
       let { data } = await axios.request(options);
-      console.log(data);
-      
+
       setOrdes(data);
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
-getUserOrders()    
+    getUserOrders();
   }, []);
 
   return (
-      <>
+    <>
       {orders ? (
         <section>
           {orders?.length === 0 ? (
@@ -47,7 +40,10 @@ getUserOrders()
                 Oops! Your Orders is empty. Start shopping now by clicking the
                 button below and find something you love!
               </h2>
-              <Link href={"/"} className="btn bg-yellow-400 hover:bg-yellow-500">
+              <Link
+                href={"/"}
+                className="btn bg-yellow-400 hover:bg-yellow-500"
+              >
                 Back To Home
               </Link>
             </div>
@@ -128,5 +124,5 @@ getUserOrders()
         <Loading />
       )}
     </>
-  )
+  );
 }

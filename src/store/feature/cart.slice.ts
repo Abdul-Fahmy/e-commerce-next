@@ -70,6 +70,21 @@ export const clearCart = createAsyncThunk('cart/clearCart', async ()=>{
     return data
 })
 
+export const updateProductCount = createAsyncThunk('cart/updateProductCount',async ({productId, count}:{productId:string, count:number})=>{
+    const token = localStorage.getItem('token')
+     const options = {
+        url: `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+        method: "PUT",
+        headers: {
+          token,
+        },
+        data: {
+          count,
+        },
+      };
+      let { data } = await axios.request(options);
+      return data
+})
 
 
 const cartSlice = createSlice({
@@ -95,7 +110,6 @@ state.cartInfo = action.payload
             
         })
         builder.addCase(getCartInfo.rejected, (state, action)=>{
-            console.log({state,action});
             
         })
 
@@ -113,6 +127,7 @@ if (action.payload.status === 'success') {
             
         })
          builder.addCase(clearCart.fulfilled, (state, action)=>{
+            
 if (action.payload.message === 'success') {
     toast.success('Your cart is now empty')
 }
@@ -121,6 +136,14 @@ if (action.payload.message === 'success') {
         })
         builder.addCase(clearCart.rejected, (state, action)=>{
             console.log({state,action});
+            
+        })
+         builder.addCase(updateProductCount.fulfilled, (state, action)=>{
+
+         
+            
+        })
+        builder.addCase(updateProductCount.rejected, (state, action)=>{
             
         })
     }

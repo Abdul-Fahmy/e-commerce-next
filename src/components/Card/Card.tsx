@@ -54,7 +54,7 @@ export default function Card({ productInfo }: { productInfo: Product }) {
               <i className="fa-solid fa-cart-shopping"></i>
             </div>
             <Link
-              href={`/`}
+              href={`/product/${productInfo.id}`}
               className="w-8 h-8 rounded-full bg-yellow-600 text-white flex justify-center items-center cursor-pointer"
             >
               <i className="fa-regular fa-eye"></i>

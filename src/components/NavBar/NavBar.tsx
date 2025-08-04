@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import toast from "react-hot-toast";
 import { getCartInfo } from "@/store/feature/cart.slice";
+import { handleLogOut } from "@/store/feature/user.slice";
 
 export default function NavBar() {
   const dispatch = useAppDispatch();
@@ -27,12 +28,7 @@ export default function NavBar() {
     setIsMenuHidden("hidden");
   };
 
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
-    // router.push("/login");
-    toast.success("logged out successfully");
-    window.location.reload();
-  };
+  
   useEffect(() => {
     dispatch(getCartInfo());
     
@@ -92,7 +88,7 @@ export default function NavBar() {
                     className={`relative before:absolute before:w-0 before:h-0.5 before:bg-green-600 hover:before:w-full before:transition-[width] before:duration-300 before:left-0 before:-bottom-1 
                        
                       `}
-                    href={"/"}
+                    href={"/brands"}
                   >
                     Brands
                   </Link>
@@ -220,10 +216,10 @@ export default function NavBar() {
                         <Link href={"/"}>WishList</Link>
                       </li>
                       <li className="border-solid border-b border-slate-600 w-full text-center py-2">
-                        <Link href={"/"}>Cart</Link>
+                        <Link href={"/cart"}>Cart</Link>
                       </li>
                       <li className="border-solid border-b border-slate-600 w-full text-center py-2">
-                        <Link href={"/"}>Change your password</Link>
+                        <Link href={"/changePassword"}>Change your password</Link>
                       </li>
 
                       <li>
