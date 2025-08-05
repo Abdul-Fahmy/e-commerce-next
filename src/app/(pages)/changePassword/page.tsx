@@ -3,8 +3,9 @@ import { useFormik } from "formik";
 import { object, ref, string } from "yup";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { handleLogOut } from "@/store/feature/user.slice";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
+import { setToken } from "@/store/feature/user.slice";
 
 
 
@@ -15,7 +16,8 @@ interface ChangePasswordValues {
 }
 
 export default function ChangePassword() {
-const token = localStorage.getItem('token')
+  const dispatch = useAppDispatch()
+const token = useAppSelector((store)=>store.userReducer.token)
 const router = useRouter()
   const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
@@ -60,7 +62,8 @@ const router = useRouter()
         );
        setTimeout(() => {
   router.push('/login');
-  handleLogOut();
+  dispatch(setToken(null))
+  
 }, 1500);
       }
     } catch (error:any) {

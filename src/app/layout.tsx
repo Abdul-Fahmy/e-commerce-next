@@ -6,6 +6,8 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import NavBar from "@/components/NavBar/NavBar";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/components/Provider/Providers";
+import ReduxHydrator from "@/components/Provider/ReduxHydrator";
+import Footer from "@/components/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +36,11 @@ export default function RootLayout({
       >
         <Providers>
         <NavBar />
-        <div className="container min-h-[70vh] pb-10 pt-20 mx-auto ">
+        <div className="container min-h-[65vh] pb-10 pt-20 mx-auto ">
+          <ReduxHydrator />
         {children}
         </div>
+        <Footer />
         </Providers>
         <Toaster />
       </body>

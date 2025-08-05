@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import toast from "react-hot-toast";
 import { getCartInfo } from "@/store/feature/cart.slice";
-import { handleLogOut } from "@/store/feature/user.slice";
+import { useRouter } from "next/navigation";
+import { setToken } from "@/store/feature/user.slice";
 
 export default function NavBar() {
+  const router = useRouter()
   const dispatch = useAppDispatch();
   const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
   const token = useAppSelector((state) => state.userReducer.token);
@@ -27,10 +29,18 @@ export default function NavBar() {
   const handleMenuClose = () => {
     setIsMenuHidden("hidden");
   };
-
+ const handleLogOut = () => {
+    localStorage.removeItem("token");
+    dispatch(setToken(null))
+    router.push("/login");
+    toast.success("logged out successfully");
+   
+  };
   
   useEffect(() => {
-    dispatch(getCartInfo());
+    if (token) {
+      dispatch(getCartInfo(token));
+    }
     
     
   }, [cartInfo]);

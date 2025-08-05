@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/hooks/store.hook";
 import { CartState } from "@/types/cart.types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -8,8 +9,7 @@ cart : null,
 cartInfo: null
 }
 
-export const addProductToCart = createAsyncThunk('cart/addToCart', async (productId:string)=>{
-    const token = localStorage.getItem('token')
+export const addProductToCart = createAsyncThunk('cart/addToCart', async ({productId , token}:{productId:string, token:string})=>{
     
     
 const options = {
@@ -26,8 +26,8 @@ let {data} = await axios.request(options)
 return data
 })
 
-export const getCartInfo = createAsyncThunk('cart/cartInfo', async ()=>{
-    const token = localStorage.getItem('token')
+export const getCartInfo = createAsyncThunk('cart/cartInfo', async (token:string)=>{
+   
     
     
 const options = {
@@ -42,8 +42,7 @@ let {data} = await axios.request(options)
 return data
 })
 
-export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async (productId:string)=>{
-    const token = localStorage.getItem('token')
+export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async ({productId , token}:{productId:string, token:string})=>{
     const options = {
         url: `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
         method: "DELETE",
@@ -56,8 +55,7 @@ export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', as
     return data
 })
 
-export const clearCart = createAsyncThunk('cart/clearCart', async ()=>{
-    const token = localStorage.getItem('token')
+export const clearCart = createAsyncThunk('cart/clearCart', async (token:string)=>{
     const options = {
         url: 'https://ecommerce.routemisr.com/api/v1/cart',
         method:'DELETE',
@@ -70,8 +68,7 @@ export const clearCart = createAsyncThunk('cart/clearCart', async ()=>{
     return data
 })
 
-export const updateProductCount = createAsyncThunk('cart/updateProductCount',async ({productId, count}:{productId:string, count:number})=>{
-    const token = localStorage.getItem('token')
+export const updateProductCount = createAsyncThunk('cart/updateProductCount',async ({productId, count,token}:{productId:string, count:number,token:string})=>{
      const options = {
         url: `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
         method: "PUT",
@@ -98,7 +95,7 @@ const cartSlice = createSlice({
                 state.cart = action.payload
                 
             }
-            getCartInfo()
+            
         })
         builder.addCase(addProductToCart.rejected, (state, action)=>{
             console.log({state,action});
@@ -117,7 +114,6 @@ state.cartInfo = action.payload
 console.log({state,action});
 if (action.payload.status === 'success') {
     toast.success('Product removed Successfully')
-    getCartInfo()
 }
          
             

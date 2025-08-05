@@ -47,8 +47,8 @@ export default function page() {
   });
   return (
     <>
-      
-        <div className="w-3/4 mx-auto">
+      <GuestRoute>
+         <div className="w-3/4 mx-auto">
       <h2 className="my-5 text-center md:text-start">Sign In Now :</h2>
       <form className="space-y-3 w-full" onSubmit={formik.handleSubmit}>
         <div className="email ">
@@ -104,6 +104,8 @@ export default function page() {
         </button>
       </form>
       </div>
+      </GuestRoute>
+       
       
     </>
   );

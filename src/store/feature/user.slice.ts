@@ -1,10 +1,12 @@
+
+
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { userState } from "@/types/user.types";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 const initialState: userState = {
-  token:  typeof window !== 'undefined' ? localStorage.getItem("token") : null,
+  token: typeof window !== "undefined" ? localStorage.getItem("token") : null,
   err: null,
 };
 
@@ -16,34 +18,28 @@ export const login = createAsyncThunk(
       method: "POST",
       data: values,
     };
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data;
   }
 );
-export const handleLogOut = () => {
-    localStorage.removeItem("token");
-    // router.push("/login");
-    toast.success("logged out successfully");
-    window.location.reload();
-  };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
-  extraReducers: function (builder) {
+  reducers: {
+    // ✅ New reducer to rehydrate token
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.token = action.payload.token;
-      localStorage.setItem("token", action.payload.token);
-      toast.success("Welcome back");
-    });
-    builder.addCase(login.rejected, (state, action) => {
-      if (action.error.message === "Request failed with status code 401") {
-        state.err = "Incorrect Email or Password";
-        toast.error("Incorrect Email or Password");
-      }
+      localStorage.setItem("token", action.payload.token); // ✅ Persist
+      toast.success("Logged in successfully");
     });
   },
 });
 
+export const { setToken } = userSlice.actions;
 export const userReducer = userSlice.reducer;

@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@/hooks/store.hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { addProductToCart } from "@/store/feature/cart.slice";
 import { Product } from "@/types/products.types";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Card({ productInfo }: { productInfo: Product }) {
   const dispatch = useAppDispatch()
+  const token = useAppSelector((store)=>store.userReducer.token)
   return (
     <>
       <div className="card group/card  shadow-lg overflow-hidden rounded-xl">
@@ -47,7 +48,9 @@ export default function Card({ productInfo }: { productInfo: Product }) {
             )} */}
             <div
                 onClick={() => {
-                  dispatch(addProductToCart(productInfo.id))
+                  if (token) {
+                    dispatch(addProductToCart({productId:productInfo.id, token}))
+                  }
                 }}
               className="w-8 h-8 rounded-full bg-yellow-600 text-white flex justify-center items-center cursor-pointer"
             >

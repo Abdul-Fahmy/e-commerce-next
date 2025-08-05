@@ -10,11 +10,14 @@ import { useEffect } from "react";
 
 export default function Products() {
   const products = useAppSelector((store) => store.productsReducer.products);
+  const token = useAppSelector((store) => store.userReducer.token);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getCartInfo())
+    if (token) {
+      dispatch(getCartInfo(token));
+    }
   }, []);
   return (
     <>

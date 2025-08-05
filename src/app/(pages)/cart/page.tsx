@@ -1,20 +1,24 @@
-'use client'
-import CartItem from "@/components/CartItem/CartItem"
-import Loading from "@/components/Loading/Loading"
-import { useAppDispatch, useAppSelector } from "@/hooks/store.hook"
-import { clearCart, getCartInfo } from "@/store/feature/cart.slice"
-import Link from "next/link"
-import { useEffect } from "react"
+"use client";
+import CartItem from "@/components/CartItem/CartItem";
+import Loading from "@/components/Loading/Loading";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
+import { clearCart, getCartInfo } from "@/store/feature/cart.slice";
+import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Cart() {
-    const cartInfo = useAppSelector((store)=> store.cartReducer.cartInfo)
-    const dispatch = useAppDispatch()
+  const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((store) => store.userReducer.token);
 
-    useEffect(()=>{
-        dispatch(getCartInfo())
-    },[cartInfo])
+  useEffect(() => {
+    if (token) {
+      dispatch(getCartInfo(token));
+    }
+  }, [cartInfo]);
   return (
-    <>{cartInfo === null ? (
+    <>
+      {cartInfo === null ? (
         <Loading />
       ) : (
         <section className="my-8 px-4 ">
@@ -30,7 +34,10 @@ export default function Cart() {
                 Oops! Your Cart is empty. Start shopping now by clicking the
                 button below and find something you love!
               </h2>
-              <Link href={"/"} className="btn bg-yellow-400 hover:bg-yellow-500">
+              <Link
+                href={"/"}
+                className="btn bg-yellow-400 hover:bg-yellow-500"
+              >
                 {" "}
                 Back To Home
               </Link>
@@ -50,8 +57,10 @@ export default function Cart() {
                   </span>
                 </p>
                 <button
-                  onClick={()=>{
-                    dispatch(clearCart())
+                  onClick={() => {
+                    if (token) {
+                      dispatch(clearCart(token));
+                    }
                   }}
                   className="btn flex justify-center items-center bg-red-500 hover:bg-red-600"
                 >
@@ -67,6 +76,7 @@ export default function Cart() {
             </>
           )}
         </section>
-      )}</>
-  )
+      )}
+    </>
+  );
 }

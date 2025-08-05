@@ -1,9 +1,10 @@
-import { useAppDispatch } from "@/hooks/store.hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { removeItemFromCart, updateProductCount } from "@/store/feature/cart.slice";
 import { CartProductItem } from "@/types/cartInfo.types";
 import Link from "next/link";
 
 export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
+  const token = useAppSelector((store)=>store.userReducer.token)
     const dispatch = useAppDispatch()
   return (
     <>
@@ -26,7 +27,9 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
             <div className="icons  space-y-2">
               <div
                 onClick={() => {
-                  dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count + 1}))
+                  if (token) {
+                    dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count + 1,token}))
+                  }
                 }}
                 className="plus cursor-pointer w-8 h-8 rounded-full bg-gray-700 text-white flex justify-center items-center"
               >
@@ -34,7 +37,9 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
               </div>
               <div
                 onClick={() => {
-                  dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count - 1}))
+                  if (token) {
+                    dispatch(updateProductCount({productId:cartInfo.product.id, count:cartInfo.count - 1,token}))
+                  }
                 }}
                 className="minus cursor-pointer w-8 h-8 rounded-full bg-gray-700 text-white flex justify-center items-center"
               >
@@ -46,7 +51,9 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
         </div>
         <button
           onClick={() => {
-            dispatch(removeItemFromCart(cartInfo.product.id))
+            if (token) {
+              dispatch(removeItemFromCart({productId:cartInfo.product.id, token}))
+            }
           }}
           className="bg-gray-100 p-3 rounded-md hover:bg-gray-200 transition-colors duration-300"
         >
