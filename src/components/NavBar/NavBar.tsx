@@ -7,11 +7,13 @@ import toast from "react-hot-toast";
 import { getCartInfo } from "@/store/feature/cart.slice";
 import { useRouter } from "next/navigation";
 import { setToken } from "@/store/feature/user.slice";
+import { getWishListInfo } from "@/store/feature/wishlist.slice";
 
 export default function NavBar() {
   const router = useRouter()
   const dispatch = useAppDispatch();
   const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
+  const wishlist = useAppSelector((store)=> store.wishListReducer.wishListInfo)
   const token = useAppSelector((state) => state.userReducer.token);
   const [isUserHidden, setIsUserHidden] = useState("hidden");
 
@@ -40,10 +42,19 @@ export default function NavBar() {
   useEffect(() => {
     if (token) {
       dispatch(getCartInfo(token));
+      
     }
     
     
   }, [cartInfo]);
+    useEffect(() => {
+    if (token) {
+      dispatch(getWishListInfo(token))
+      
+    }
+    
+    
+  }, [wishlist]);
   return (
     <>
       <div className="nav py-3 shadow bg-slate-100 fixed top-0 left-0 right-0 z-50">
@@ -131,12 +142,16 @@ export default function NavBar() {
                 </div>
               </Link>
               <Link
-                href={"/"}
+                href={"/wishlist"}
                 className="hidden lg:inline-block cart cursor-pointer  relative"
               >
                 <i className={` fa-solid fa-heart text-lg text-red-600`}></i>
                 <div className="cart-counter absolute h-5  w-5 rounded-full right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-green-600 text-white flex justify-center items-center ">
-                  <i className="fa-solid fa-spinner fa-spin"></i>
+                  {wishlist === null ? (
+                    <i className="fa-solid fa-spinner fa-spin"></i>
+                  ) : (
+                    <span>{wishlist.count}</span>
+                  )}
                 </div>
               </Link>
             </>

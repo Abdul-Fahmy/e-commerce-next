@@ -1,12 +1,20 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { addProductToCart } from "@/store/feature/cart.slice";
+import {
+  addProductToWishList,
+  getWishListInfo,
+  removeProductFromWishList,
+} from "@/store/feature/wishlist.slice";
 import { Product } from "@/types/products.types";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Card({ productInfo }: { productInfo: Product }) {
-  const dispatch = useAppDispatch()
-  const token = useAppSelector((store)=>store.userReducer.token)
+  const dispatch = useAppDispatch();
+  const token = useAppSelector((store) => store.userReducer.token);
+  const wishList = useAppSelector(
+    (store) => store.wishListReducer.wishListInfo
+  );
   return (
     <>
       <div className="card group/card  shadow-lg overflow-hidden rounded-xl">
@@ -21,10 +29,14 @@ export default function Card({ productInfo }: { productInfo: Product }) {
             sizes="(max-width: 768px) 100vw, 33vw"
           />
           <div className="layer group-hover/card:opacity-100 flex justify-center items-center gap-4 absolute w-full h-full left-0 top-0 bg-slate-400 bg-opacity-40 opacity-0 transition-opacity duration-300">
-            {/* {wishList === null ? (
+            {wishList === null ? (
               <div
                 onClick={() => {
-                  addProductToWishList({ productId: id });
+                  if (token) {
+                    dispatch(
+                      addProductToWishList({ productId: productInfo.id, token })
+                    );
+                  }
                 }}
                 className={`w-8 h-8 rounded-full bg-yellow-600 text-white flex justify-center items-center cursor-pointer`}
               >
@@ -33,25 +45,39 @@ export default function Card({ productInfo }: { productInfo: Product }) {
             ) : (
               <div
                 onClick={() => {
-                  if (wishList.includes(id)) {
-                    removeProductFromWishList({ productId: id });
+                  if (wishList.data.some(product => product.id === productInfo.id) && token) {
+                    dispatch(
+                      removeProductFromWishList({
+                        productId: productInfo.id,
+                        token,
+                      })
+                    );
+                    dispatch(getWishListInfo(token))
                   } else {
-                    addProductToWishList({ productId: id });
+                    dispatch(
+                      addProductToWishList({ productId: productInfo.id, token:token! })
+                    );
+                    dispatch(getWishListInfo(token!))
                   }
                 }}
                 className={`w-8 h-8 rounded-full ${
-                  wishList.includes(id) ? "bg-red-600" : "bg-yellow-600"
+                  wishList.data.some(product => product.id === productInfo.id)
+                    ? "bg-red-600"
+                    : "bg-yellow-600"
                 }   text-white flex justify-center items-center cursor-pointer`}
               >
                 <i className="fa-solid fa-heart"></i>
               </div>
-            )} */}
+            )}
+
             <div
-                onClick={() => {
-                  if (token) {
-                    dispatch(addProductToCart({productId:productInfo.id, token}))
-                  }
-                }}
+              onClick={() => {
+                if (token) {
+                  dispatch(
+                    addProductToCart({ productId: productInfo.id, token })
+                  );
+                }
+              }}
               className="w-8 h-8 rounded-full bg-yellow-600 text-white flex justify-center items-center cursor-pointer"
             >
               <i className="fa-solid fa-cart-shopping"></i>

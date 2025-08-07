@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import Providers from "@/components/Provider/Providers";
 import ReduxHydrator from "@/components/Provider/ReduxHydrator";
 import Footer from "@/components/Footer/Footer";
+import ClientOnly from "@/components/ClientOnly/ClientOnly";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +36,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-        <NavBar />
+        <ClientOnly><NavBar /></ClientOnly>
         <div className="container min-h-[65vh] pb-10 pt-20 mx-auto ">
           <ReduxHydrator />
         {children}
         </div>
-        <Footer />
+        <ClientOnly><Footer /></ClientOnly>
         </Providers>
         <Toaster />
       </body>
