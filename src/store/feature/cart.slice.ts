@@ -22,7 +22,7 @@ const options = {
           productId,
         },
       };
-let {data} = await axios.request(options)
+const {data} = await axios.request(options)
 return data
 })
 
@@ -38,33 +38,33 @@ const options = {
         },
        
       };
-let {data} = await axios.request(options)
+const {data} = await axios.request(options)
 return data
 })
 
 export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async ({productId , token}:{productId:string, token:string})=>{
     const options = {
         url: `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-        method: "DELETE",
+        method: "DEconstE",
         headers: {
           token,
         },
     }
 
-    let {data} = await axios.request(options)
+    const {data} = await axios.request(options)
     return data
 })
 
 export const clearCart = createAsyncThunk('cart/clearCart', async (token:string)=>{
     const options = {
         url: 'https://ecommerce.routemisr.com/api/v1/cart',
-        method:'DELETE',
+        method:'DEconstE',
         headers: {
             token,
         }
     }
 
-    let {data} = await axios.request(options)
+    const {data} = await axios.request(options)
     return data
 })
 
@@ -79,7 +79,7 @@ export const updateProductCount = createAsyncThunk('cart/updateProductCount',asy
           count,
         },
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       return data
 })
 

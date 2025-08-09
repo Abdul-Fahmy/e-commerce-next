@@ -17,8 +17,8 @@ export default function BrandsDetails() {
 
 
 const [brandDetails, setBrandDetails] = useState<Product[] | null>(null);
-  let { brandsId } = useParams<Param>();
-  let router = useRouter();
+  const { brandsId } = useParams<Param>();
+  const router = useRouter();
 
   async function getCategory() {
     try {
@@ -26,7 +26,7 @@ const [brandDetails, setBrandDetails] = useState<Product[] | null>(null);
         url: `https://ecommerce.routemisr.com/api/v1/products?brand=${brandsId}`,
         method: "GET",
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.results === 0) {
         toast.custom((t) => (
           <div

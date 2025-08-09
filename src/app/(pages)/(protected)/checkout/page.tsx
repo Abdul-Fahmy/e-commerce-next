@@ -20,7 +20,7 @@ async function createCashOrder(values: {
         city: string;
     };
 }) {
-    let toastId = toast.loading("We are creating your order ....");
+    const toastId = toast.loading("We are creating your order ....");
     try {
       const options = {
         url: `https://ecommerce.routemisr.com/api/v1/orders/${cartInfo?.cartId}`,
@@ -30,7 +30,7 @@ async function createCashOrder(values: {
         },
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.status === "success") {
         
         toast.success("Your order has been created");
@@ -62,7 +62,7 @@ async function createCashOrder(values: {
         },
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.status === "success") {
         
         toast.loading("redirecting you to stripe");
@@ -75,7 +75,7 @@ async function createCashOrder(values: {
     }
   }
 
-    let formik = useFormik({
+    const formik = useFormik({
     initialValues: {
       shippingAddress: {
         details: "",

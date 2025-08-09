@@ -47,7 +47,7 @@ export default function Products() {
           <div className="flex justify-center items-center bg-slate-200 col-span-12 p-4">
             <p className="text-2xl">
               No result found for:{" "}
-              <span className="text-violet-300">{searchValue}</span>
+              <span className="text-vioconst-300">{searchValue}</span>
             </p>
           </div>
         ) : (

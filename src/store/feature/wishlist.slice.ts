@@ -21,7 +21,7 @@ const options = {
 
    
 }
-let {data} = await axios.request(options)
+const {data} = await axios.request(options)
 return data
 })
 
@@ -36,7 +36,7 @@ const options = {
    
 }
 
-let {data} = await axios.request(options)
+const {data} = await axios.request(options)
 return data
 })
 
@@ -44,7 +44,7 @@ return data
 export const removeProductFromWishList = createAsyncThunk('wishList/removeProductFromWishList', async ({productId,token}:{productId:string, token:string})=>{
     const options = {
       url: `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
-      method:'DELETE',
+      method:'DEconstE',
       headers: {
         token
       }

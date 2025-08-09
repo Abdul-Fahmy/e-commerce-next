@@ -11,14 +11,14 @@ interface ResetCodeFormValues {
 export default function ResetCode() {
   const router = useRouter();
   async function handleSubmit(values:ResetCodeFormValues) {
-    let toastId = toast.loading("Waiting....");
+    const toastId = toast.loading("Waiting....");
     try {
       const options = {
         url: "https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode",
         method: "POST",
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.status === "Success") {
         setTimeout(() => {
           router.push("/resetPassword");
@@ -32,7 +32,7 @@ export default function ResetCode() {
     }
   }
 
-  let formik = useFormik<ResetCodeFormValues>({
+  const formik = useFormik<ResetCodeFormValues>({
     initialValues: {
       resetCode: "",
     },

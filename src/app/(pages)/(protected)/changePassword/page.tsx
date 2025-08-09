@@ -22,18 +22,18 @@ const router = useRouter()
   const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
 
-  let schema = object({
+  const schema = object({
     currentPassword: string()
       .required("Password is required")
       .matches(
         passwordRegex,
-        "Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+        "Minimum eight characters, at least one upper case English constter, one lower case English constter, one number and one special character"
       ),
     password: string()
       .required("Password is required")
       .matches(
         passwordRegex,
-        "Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+        "Minimum eight characters, at least one upper case English constter, one lower case English constter, one number and one special character"
       ),
     rePassword: string()
       .required("Confirm password is required")
@@ -44,7 +44,7 @@ const router = useRouter()
   });
 
   async function handleSubmit(values:ChangePasswordValues) {
-    let toastId = toast.loading("Waiting...");
+    const toastId = toast.loading("Waiting...");
     try {
       const options = {
         url: "https://ecommerce.routemisr.com/api/v1/users/changeMyPassword",
@@ -55,7 +55,7 @@ const router = useRouter()
         data: values,
       };
 
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success(
           "Your Password has been changed successfully, Try to signIn "
@@ -73,7 +73,7 @@ const router = useRouter()
     }
   }
 
-  let formik = useFormik<ChangePasswordValues>({
+  const formik = useFormik<ChangePasswordValues>({
     initialValues: {
       currentPassword: "",
       password: "",

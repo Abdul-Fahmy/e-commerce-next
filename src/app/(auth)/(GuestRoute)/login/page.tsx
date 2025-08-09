@@ -13,7 +13,7 @@ export default function page() {
   const error = useAppSelector((state) => state.userReducer.err);
 
 
-  let schema = object({
+  const schema = object({
     email: string().required("Email is required").email("Invalid Email"),
 
     password: string()

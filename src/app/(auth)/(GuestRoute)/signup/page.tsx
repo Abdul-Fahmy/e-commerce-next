@@ -21,7 +21,7 @@ export default function SignUp() {
 
   const phoneRegex = /^(02)?01[0125][0-9]{8}$/;
 
-  let schema = object({
+  const schema = object({
     name: string()
       .required("Name is required")
       .min(3, "Must be atleast 3 character")
@@ -48,7 +48,7 @@ export default function SignUp() {
         method: "POST",
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.message === "success") {
         toast.success("User created successfully");
         setTimeout(() => {

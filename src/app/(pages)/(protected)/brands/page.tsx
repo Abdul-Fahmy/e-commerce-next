@@ -15,7 +15,7 @@ export default function Brands() {
         url: "https://ecommerce.routemisr.com/api/v1/brands",
         method: "GET",
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       console.log(data);
       
       setBrands(data.data);

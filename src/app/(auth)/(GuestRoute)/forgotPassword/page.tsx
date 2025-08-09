@@ -9,20 +9,20 @@ interface ForgotPasswordFormValues {
 }
 
 export default function ForgotPassword() {
-  let router = useRouter();
-  let schema = object({
+  const router = useRouter();
+  const schema = object({
     email: string().required("Email is required").email("Invalid Email"),
   });
 
   async function handleSubmit(values:ForgotPasswordFormValues) {
-    let toastId = toast.loading("Waiting ....");
+    const toastId = toast.loading("Waiting ....");
     try {
       const options = {
         url: "https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords",
         method: "POST",
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.statusMsg === "success") {
         toast.success("reset code sent successfully");
         setTimeout(() => {
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
     }
   }
 
-  let formik = useFormik<ForgotPasswordFormValues>({
+  const formik = useFormik<ForgotPasswordFormValues>({
     initialValues: {
       email: "",
     },

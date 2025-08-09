@@ -17,7 +17,7 @@ type Params = {
 };
 
 export default function ProductDetails() {
-  let { productId } = useParams<Params>();
+  const { productId } = useParams<Params>();
   const dispatch = useAppDispatch();
   const productDetails = useAppSelector(
     (store) => store.productsReducer.product

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 export default function Orders() {
   const [orders, setOrdes] = useState<Order[] | null>(null);
   const token = localStorage.getItem("token");
-  let { id }: any = jwtDecode(token!);
+  const { id }: any = jwtDecode(token!);
 
   // get user Orders
   async function getUserOrders() {
@@ -19,7 +19,7 @@ export default function Orders() {
         url: `https://ecommerce.routemisr.com/api/v1/orders/user/${id}`,
         method: "GET",
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
 
       setOrdes(data);
     } catch (error) {

@@ -16,26 +16,26 @@ export default function ResetPassword() {
   const passwordRegex =
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
 
-  let schema = object({
+  const schema = object({
     email: string().required("Email is required").email("Invalid Email"),
 
     newPassword: string()
       .required("Password is required")
       .matches(
         passwordRegex,
-        "Minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character"
+        "Minimum eight characters, at least one upper case English constter, one lower case English constter, one number and one special character"
       ),
   });
 
   async function handleSubmit(values: UpdatePasswordValues) {
-    let toastId = toast.loading("Waiting....");
+    const toastId = toast.loading("Waiting....");
     try {
       const options = {
         url: "https://ecommerce.routemisr.com/api/v1/auth/resetPassword",
         method: "PUT",
         data: values,
       };
-      let { data } = await axios.request(options);
+      const { data } = await axios.request(options);
       if (data.token) {
         toast.success("User Password Update successfully");
         setTimeout(() => {
@@ -48,7 +48,7 @@ export default function ResetPassword() {
       toast.dismiss(toastId);
     }
   }
-  let formik = useFormik<UpdatePasswordValues>({
+  const formik = useFormik<UpdatePasswordValues>({
     initialValues: {
       email: "",
       newPassword: "",

@@ -14,7 +14,7 @@ export const getProducts = createAsyncThunk(
       url: `https://ecommerce.routemisr.com/api/v1/products`,
       method: "GET",
     };
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data.data;
   }
 );
@@ -26,7 +26,7 @@ export const getProductDetails = createAsyncThunk(
       url: `https://ecommerce.routemisr.com/api/v1/products/${id}`,
       method: "GET",
     };
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data.data;
   }
 );
@@ -39,7 +39,7 @@ export const getRelatedProducts = createAsyncThunk(
       method: "GET",
     };
 
-    let { data } = await axios.request(options);
+    const { data } = await axios.request(options);
     return data;
   }
 );
