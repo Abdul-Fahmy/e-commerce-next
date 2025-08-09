@@ -5,7 +5,7 @@ import { getWishListInfo, removeProductFromWishList } from "@/store/feature/wish
 import Link from "next/link"
 import { useEffect } from "react"
 
-export default function page() {
+export default function WishList() {
     const token = useAppSelector((store)=> store.userReducer.token)
     const dispatch = useAppDispatch()
     const wishList = useAppSelector((store)=> store.wishListReducer.wishListInfo)

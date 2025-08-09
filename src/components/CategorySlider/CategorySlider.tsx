@@ -1,5 +1,5 @@
 'use client'
-import  { useEffect, useState } from "react";
+import  { useEffect } from "react";
 import Loading from "../Loading/Loading";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";

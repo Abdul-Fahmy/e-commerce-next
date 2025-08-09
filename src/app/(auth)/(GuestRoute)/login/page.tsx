@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { object, string } from "yup";
 
-export default function page() {
+export default function Login() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const error = useAppSelector((state) => state.userReducer.err);
