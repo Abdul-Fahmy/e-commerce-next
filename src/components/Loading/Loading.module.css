@@ -73,7 +73,7 @@
 
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
-  :root {
+  .loading {
     --bg: hsl(var(--hue), 10%, 10%);
     --fg: hsl(var(--hue), 10%, 90%);
   }
