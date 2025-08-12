@@ -44,7 +44,7 @@ return data
 export const removeProductFromWishList = createAsyncThunk('wishList/removeProductFromWishList', async ({productId,token}:{productId:string, token:string})=>{
     const options = {
       url: `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
-      method:'DEconstE',
+      method:'DELETE',
       headers: {
         token
       }
