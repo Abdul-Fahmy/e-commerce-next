@@ -62,8 +62,8 @@ const wishListSlice = createSlice({
     reducers:{},
     extraReducers: (builder)=>{
 builder.addCase(addProductToWishList.fulfilled, (state,action)=>{
-console.log({state,action});
-if (action.payload.message === "Product added successfully to your wishlist"
+
+if (action.payload.data === "success"
 ) {
     toast.success("Product added successfully to your wishlist")
     state.wishList = action.payload
