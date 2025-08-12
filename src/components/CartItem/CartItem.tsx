@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { removeItemFromCart, updateProductCount } from "@/store/feature/cart.slice";
 import { CartProductItem } from "@/types/cartInfo.types";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
@@ -10,8 +11,11 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
     <>
       <div className="flex gap-2">
         <div className="card-item md:grow flex flex-wrap justify-between items-center bg-gray-100 py-4 px-6 rounded-lg gap-3">
-          <img
-            className="w-24 h-24 object-cover rounded-full border-4 border-white"
+          <Image
+          style={{width:'96px',height:"96px", objectFit:"cover",borderRadius:'50%', borderColor:"white", borderWidth:"4px"}}
+           width={0}
+           height={0}
+           priority
             src={cartInfo.product.imageCover}
             alt={cartInfo.product.title}
           />

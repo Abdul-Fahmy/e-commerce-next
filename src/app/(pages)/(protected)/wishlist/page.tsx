@@ -2,6 +2,7 @@
 import Loading from "@/components/Loading/Loading"
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook"
 import { getWishListInfo, removeProductFromWishList } from "@/store/feature/wishlist.slice"
+import Image from "next/image"
 import Link from "next/link"
 import { useEffect } from "react"
 
@@ -42,8 +43,11 @@ export default function WishList() {
                     key={wishList._id}
                     className="product-item overflow-hidden border-solid border-2 border-gray-400 border-opacity-30 rounded-lg"
                   >
-                    <img
-                      className="w-full"
+                    <Image
+                    width={0}
+                  height={0}
+                  style={{ width: "100%", height: "90px", objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 33vw"
                       src={wishList.imageCover}
                       alt={wishList.title}
                     />

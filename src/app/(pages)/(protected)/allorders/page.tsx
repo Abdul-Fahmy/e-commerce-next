@@ -4,6 +4,7 @@ import Loading from "@/components/Loading/Loading";
 import { Order } from "@/types/orders.types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -86,10 +87,14 @@ export default function Orders() {
                         key={product._id}
                         className="product-item overflow-hidden border-solid border-2 border-gray-400 border-opacity-30 rounded-lg"
                       >
-                        <img
-                          className="w-full"
+                        <Image
                           src={product.product.imageCover}
                           alt=""
+                          priority
+                  width={0}
+                  height={0}
+                  style={{ width: "100%", height: "90px", objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 33vw"
                         />
                         <div className="p-3">
                           <h3 className="text-lg font-semibold text-gray-500 line-clamp-2">

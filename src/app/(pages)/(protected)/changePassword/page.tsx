@@ -1,7 +1,7 @@
 'use client'
 import { useFormik } from "formik";
 import { object, ref, string } from "yup";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
@@ -66,8 +66,10 @@ const router = useRouter()
   
 }, 1500);
       }
-    } catch (error:any) {
-      toast.error(error);
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+    toast.error(error.response.data.message);}
+     
     } finally {
       toast.dismiss(toastId);
     }

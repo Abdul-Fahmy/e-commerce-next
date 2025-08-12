@@ -2,6 +2,7 @@
 import Loading from "@/components/Loading/Loading";
 import { Brand } from "@/types/brands.types";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,10 +44,14 @@ export default function Brands() {
                 key={brand._id}
                 className="category-item border-solid border-2 border-gray-400 border-opacity-30 rounded-md overflow-hidden cursor-pointer"
               >
-                <img
-                  className="w-full h-64 object-cover"
+                <Image
+                width={0}
+                  height={0}
+                  style={{ width: "100%", height: "256px", objectFit: "cover" }}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  
                   src={brand.image}
-                  alt=""
+                  alt={brand.name}
                 />
                 <div className="title text-center my-4">
                   <Link
