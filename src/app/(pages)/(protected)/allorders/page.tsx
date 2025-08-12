@@ -1,6 +1,7 @@
 "use client";
 
 import Loading from "@/components/Loading/Loading";
+import { useAppSelector } from "@/hooks/store.hook";
 import { Order } from "@/types/orders.types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
@@ -10,8 +11,8 @@ import React, { useEffect, useState } from "react";
 
 export default function Orders() {
   const [orders, setOrdes] = useState<Order[] | null>(null);
-  const token = localStorage.getItem("token");
-  const { id }: any = jwtDecode(token!);
+  const token = useAppSelector((store)=>store.userReducer.token)
+  const { id }:{id:string} = jwtDecode(token!);
 
   // get user Orders
   async function getUserOrders() {
