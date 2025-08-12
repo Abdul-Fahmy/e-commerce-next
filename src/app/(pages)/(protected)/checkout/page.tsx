@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function checkOut() {
+export default function CheckOut() {
     const cartInfo = useAppSelector((store)=> store.cartReducer.cartInfo)
     const token = localStorage.getItem('token')
       const [paymentMethod, setPaymentMethod] = useState<string | null>(null);

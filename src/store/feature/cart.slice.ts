@@ -1,4 +1,3 @@
-import { useAppSelector } from "@/hooks/store.hook";
 import { CartState } from "@/types/cart.types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
