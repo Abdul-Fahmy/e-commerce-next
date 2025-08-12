@@ -21,6 +21,7 @@
     "react-hot-toast": "^2.5.2",
     "react-image-gallery": "^1.4.0",
     "react-redux": "^9.2.0",
+    "sass": "^1.90.0",
     "swiper": "^11.2.10",
     "yup": "^1.6.1"
   },
