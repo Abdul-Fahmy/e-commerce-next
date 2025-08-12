@@ -106,12 +106,11 @@ const cartSlice = createSlice({
 state.cartInfo = action.payload          
             
         })
-        builder.addCase(getCartInfo.rejected, (state, action)=>{
+        builder.addCase(getCartInfo.rejected, ()=>{
             
         })
 
-         builder.addCase(removeItemFromCart.fulfilled, (state, action)=>{
-console.log({state,action});
+         builder.addCase(removeItemFromCart.fulfilled, (_, action)=>{
 if (action.payload.status === 'success') {
     toast.success('Product removed Successfully')
 }
@@ -122,7 +121,7 @@ if (action.payload.status === 'success') {
             console.log({state,action});
             
         })
-         builder.addCase(clearCart.fulfilled, (state, action)=>{
+         builder.addCase(clearCart.fulfilled, (_, action)=>{
             
 if (action.payload.message === 'success') {
     toast.success('Your cart is now empty')
@@ -134,12 +133,12 @@ if (action.payload.message === 'success') {
             console.log({state,action});
             
         })
-         builder.addCase(updateProductCount.fulfilled, (state, action)=>{
+         builder.addCase(updateProductCount.fulfilled, ()=>{
 
          
             
         })
-        builder.addCase(updateProductCount.rejected, (state, action)=>{
+        builder.addCase(updateProductCount.rejected, ()=>{
             
         })
     }
