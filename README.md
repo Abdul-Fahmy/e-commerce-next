@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-Commerce Next.js Project
 
-## Getting Started
+A modern e-commerce web application built with **Next.js (App Router)**, **TypeScript**, **Redux Toolkit**, and **Tailwind CSS v4**.  
+The app follows a modular folder structure and includes authentication, product browsing, cart management, wishlist, checkout, payment method and more.
 
-First, run the development server:
+---
+
+## 📌 Features
+
+- **User Authentication**
+  - Login / Register
+  - Protected routes for authenticated users
+- **Product Management**
+  - Product listing with images and details
+  - Product detail page with dynamic routing
+- **Cart & Wishlist**
+  - Add/remove products from cart
+  - Wishlist management
+- **Orders**
+  - View past orders with delivery & payment status
+  - Order details including products and total price
+- **UI & Styling**
+  - Fully responsive design
+  - Styled using Tailwind CSS and SCSS Modules
+  - Custom 404 page
+- **API Integration**
+  - Fetch products, orders, and user data from external API
+  - Axios for API requests
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend Framework**: [Next.js](https://nextjs.org/) (v15+)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/), SCSS Modules
+- **API Calls**: [Axios](https://axios-http.com/)
+- **Other Libraries**:
+  - `jwt-decode` for token decoding
+  - `formik` & `yup` for forms and validation
+  - `swiper` for product sliders
+
+---
+
+## 📂 Folder Structure
+
+```plaintext
+src
+├─ app
+│  ├─ (auth)            # Authentication routes (login, signup, forgot password)
+│  ├─ (pages)           # Main application pages (protected routes)
+│  ├─ favicon.ico
+│  ├─ globals.css       # Global styles (TailwindCSS)
+│  ├─ layout.tsx        # Root layout
+│  ├─ not-found.tsx     # Custom 404 page
+│  └─ notFound.module.scss
+├─ components           # Reusable UI components
+├─ hooks                # Custom React hooks
+├─ store                # Redux slices & store setup
+└─ types                # TypeScript type definitions
+```
+
+---
+
+## 📬 Contact
+
+For inquiries, suggestions, or collaboration opportunities, feel free to reach out:
+
+- **Email:** abdelrhmanfahmy69@gmail.com
+- **GitHub:** [Abdul-Fahmy](https://github.com/Abdul-Fahmy)
+- **LinkedIn:** [Abdulrahman Fahmy](https://www.linkedin.com/in/abdulrahman-fahmy-aa06321b0/)
+
+---
+
+© 2025 Abdulrahman Fahmy – All Rights Reserved
+
+## 🛠 Installation
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Abdul-Fahmy/e-commerce-next.git
+cd e-commerce-next
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 💻 Development
+
+### Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗 Build for Production
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Styling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses **Tailwind CSS v4**.  
+You can customize styles in `globals.css` and use Tailwind’s utility classes for quick styling.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔒 Authentication
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Public routes for **login**, **signup**, **forgot password**
+- Protected routes for **home**, **orders**, **wishlist**, **cart** and more
+- Route protection handled via `ProtectedRoute` and `GuestRoute` components
+
+---
+
+## 📦 State Management
+
+- **Redux Toolkit** slices:
+  - `cart.slice.ts`
+  - `wishlist.slice.ts`
+  - `products.slice.ts`
+  - `categories.slice.ts`
+  - `user.slice.ts`
+- Store initialized in `store.ts`
+
+---
+
+## 🔗 API Integration
+
+- All API requests are handled via **Axios**
+- Base URL and endpoints are configurable
+- Authentication tokens stored in Redux
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License – see the [LICENSE](./LICENSE) file for details.
