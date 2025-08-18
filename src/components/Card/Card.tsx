@@ -102,7 +102,7 @@ export default function Card({ productInfo }: { productInfo: Product }) {
         <div className="card-body space-y-2 px-3 py-2">
           <div className="card-header ">
             <h3 className="text-lg font-semibold text-gray-400 line-clamp-1">
-              <Link href={`/product/${productInfo.id}`}>
+              <Link href={`/product/${productInfo._id}`}>
                 {productInfo.title}
               </Link>
             </h3>
