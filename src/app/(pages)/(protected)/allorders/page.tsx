@@ -11,11 +11,11 @@ import React, { useEffect, useState } from "react";
 
 export default function Orders() {
   const [orders, setOrdes] = useState<Order[] | null>(null);
-  const token = useAppSelector((store)=>store.userReducer.token)
-  const { id }:{id:string} = jwtDecode(token!);
+  const token = useAppSelector((store) => store.userReducer.token);
 
   // get user Orders
   async function getUserOrders() {
+    const { id }: { id: string } = jwtDecode(token!);
     try {
       const options = {
         url: `https://ecommerce.routemisr.com/api/v1/orders/user/${id}`,
@@ -92,10 +92,14 @@ export default function Orders() {
                           src={product.product.imageCover}
                           alt=""
                           priority
-                  width={0}
-                  height={0}
-                  style={{ width: "100%", height: "90px", objectFit: "cover" }}
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                          width={0}
+                          height={0}
+                          style={{
+                            width: "100%",
+                            height: "90px",
+                            objectFit: "cover",
+                          }}
+                          sizes="(max-width: 768px) 100vw, 33vw"
                         />
                         <div className="p-3">
                           <h3 className="text-lg font-semibold text-gray-500 line-clamp-2">
