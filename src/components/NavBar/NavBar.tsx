@@ -36,7 +36,7 @@ export default function NavBar() {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     dispatch(setToken(null));
-    router.push("/login");
+    // router.push("/login");
     toast.success("logged out successfully");
   };
 
