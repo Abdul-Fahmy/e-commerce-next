@@ -14,10 +14,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { useRouter } from "next/router";
 
-// type Params = {
-//     productId: string;
-// };
-
 export default function ProductDetails() {
     const { query } = useRouter();
     const dispatch = useAppDispatch();
@@ -27,15 +23,18 @@ export default function ProductDetails() {
     const relatedProducts = useAppSelector(
         (store) => store.productsReducer.relatedProducts
     );
-    useEffect(() => {
-        dispatch(getProductDetails(query.productId as string));
-    }, []);
 
     useEffect(() => {
-        if (productDetails === null) return;
+        if (query.id) {
+            dispatch(getProductDetails(query.id as string));
+        }
+    }, [query.id, dispatch]);
 
-        dispatch(getRelatedProducts(productDetails.category._id));
-    }, []);
+    useEffect(() => {
+        if (productDetails) {
+            dispatch(getRelatedProducts(productDetails.category._id));
+        }
+    }, [productDetails, dispatch]);
 
     return (
         <>
@@ -46,12 +45,10 @@ export default function ProductDetails() {
                             <ReactImageGallery
                                 showNav={false}
                                 showPlayButton={false}
-                                items={productDetails.images.map((image) => {
-                                    return {
-                                        original: image,
-                                        thumbnail: image,
-                                    };
-                                })}
+                                items={productDetails.images.map((image) => ({
+                                    original: image,
+                                    thumbnail: image,
+                                }))}
                             />
                         </div>
 
@@ -69,17 +66,12 @@ export default function ProductDetails() {
                             </p>
                             <div className=" flex justify-between items-center">
                                 <span>{productDetails.price} L.E</span>
-                                <div className="">
+                                <div>
                                     <i className="fa-solid fa-star text-yellow-300 mr-2"></i>
                                     <span>{productDetails.ratingsAverage}</span>
                                 </div>
                             </div>
-                            <button
-                                // onClick={() => {
-                                //     addProductToCart({ productId: id });
-                                // }}
-                                className="btn bg-green-600 hover:bg-green-700 transition-colors duration-300 font-semibold w-full"
-                            >
+                            <button className="btn bg-green-600 hover:bg-green-700 transition-colors duration-300 font-semibold w-full">
                                 Add To Cart
                             </button>
                         </div>
@@ -92,18 +84,10 @@ export default function ProductDetails() {
                         {relatedProducts ? (
                             <Swiper
                                 breakpoints={{
-                                    320: {
-                                        slidesPerView: 1,
-                                    },
-                                    480: {
-                                        slidesPerView: 3,
-                                    },
-                                    640: {
-                                        slidesPerView: 3,
-                                    },
-                                    860: {
-                                        slidesPerView: 4,
-                                    },
+                                    320: { slidesPerView: 1 },
+                                    480: { slidesPerView: 3 },
+                                    640: { slidesPerView: 3 },
+                                    860: { slidesPerView: 4 },
                                 }}
                                 spaceBetween={20}
                                 loop={true}
