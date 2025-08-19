@@ -10,10 +10,12 @@ import { setToken } from "@/store/feature/user.slice";
 import { getWishListInfo } from "@/store/feature/wishlist.slice";
 
 export default function NavBar() {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
-  const wishlist = useAppSelector((store)=> store.wishListReducer.wishListInfo)
+  const wishlist = useAppSelector(
+    (store) => store.wishListReducer.wishListInfo
+  );
   const token = useAppSelector((state) => state.userReducer.token);
   const [isUserHidden, setIsUserHidden] = useState("hidden");
 
@@ -31,30 +33,28 @@ export default function NavBar() {
   const handleMenuClose = () => {
     setIsMenuHidden("hidden");
   };
- const handleLogOut = () => {
+  const handleLogOut = () => {
     localStorage.removeItem("token");
-    dispatch(setToken(null))
+    dispatch(setToken(null));
     router.push("/login");
     toast.success("logged out successfully");
-   
   };
-  
+
   useEffect(() => {
     if (token) {
       dispatch(getCartInfo(token));
-      
     }
     
     
-  }, []);
+  }, [cartInfo]);
     useEffect(() => {
     if (token) {
-      dispatch(getWishListInfo(token))
-      
+      dispatch(getWishListInfo(token));
+      console.log("ss");
     }
     
     
-  }, []);
+  }, [wishlist]);
   return (
     <>
       <div className="nav py-3 shadow bg-slate-100 fixed top-0 left-0 right-0 z-50">
@@ -130,10 +130,7 @@ export default function NavBar() {
                 className="hidden lg:inline-block cart cursor-pointer ml-auto relative"
               >
                 <i className="fa-solid fa-cart-shopping text-lg"></i>
-                <div
-                  
-                  className="cart-counter absolute h-5  w-5 rounded-full right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-green-600 text-white flex justify-center items-center "
-                >
+                <div className="cart-counter absolute h-5  w-5 rounded-full right-0 top-0 translate-x-1/2 -translate-y-1/2 bg-green-600 text-white flex justify-center items-center ">
                   {cartInfo === null ? (
                     <i className="fa-solid fa-spinner fa-spin"></i>
                   ) : (
@@ -244,7 +241,9 @@ export default function NavBar() {
                         <Link href={"/cart"}>Cart</Link>
                       </li>
                       <li className="border-solid border-b border-slate-600 w-full text-center py-2">
-                        <Link href={"/changePassword"}>Change your password</Link>
+                        <Link href={"/changePassword"}>
+                          Change your password
+                        </Link>
                       </li>
 
                       <li>

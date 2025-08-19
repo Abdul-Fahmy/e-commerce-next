@@ -1,5 +1,4 @@
 "use client";
-
 import Card from "@/components/Card/Card";
 import Loading from "@/components/Loading/Loading";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";

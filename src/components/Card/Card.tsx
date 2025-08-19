@@ -1,3 +1,4 @@
+"use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { addProductToCart } from "@/store/feature/cart.slice";
 import {
@@ -45,23 +46,31 @@ export default function Card({ productInfo }: { productInfo: Product }) {
             ) : (
               <div
                 onClick={() => {
-                  if (wishList.data.some(product => product.id === productInfo.id) && token) {
+                  if (
+                    wishList.data.some(
+                      (product) => product.id === productInfo.id
+                    ) &&
+                    token
+                  ) {
                     dispatch(
                       removeProductFromWishList({
                         productId: productInfo.id,
                         token,
                       })
                     );
-                    dispatch(getWishListInfo(token))
+                    dispatch(getWishListInfo(token));
                   } else {
                     dispatch(
-                      addProductToWishList({ productId: productInfo.id, token:token! })
+                      addProductToWishList({
+                        productId: productInfo.id,
+                        token: token!,
+                      })
                     );
-                    dispatch(getWishListInfo(token!))
+                    dispatch(getWishListInfo(token!));
                   }
                 }}
                 className={`w-8 h-8 rounded-full ${
-                  wishList.data.some(product => product.id === productInfo.id)
+                  wishList.data.some((product) => product.id === productInfo.id)
                     ? "bg-red-600"
                     : "bg-yellow-600"
                 }   text-white flex justify-center items-center cursor-pointer`}
@@ -93,7 +102,7 @@ export default function Card({ productInfo }: { productInfo: Product }) {
         <div className="card-body space-y-2 px-3 py-2">
           <div className="card-header ">
             <h3 className="text-lg font-semibold text-gray-400 line-clamp-1">
-              <Link href={`/product/${productInfo.id}`}>
+              <Link href={`/product/${productInfo._id}`}>
                 {productInfo.title}
               </Link>
             </h3>

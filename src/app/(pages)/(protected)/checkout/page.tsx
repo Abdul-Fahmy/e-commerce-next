@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useAppSelector } from "@/hooks/store.hook";
 import axios from "axios";
 import { useFormik } from "formik";
@@ -7,19 +7,18 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function CheckOut() {
-    const cartInfo = useAppSelector((store)=> store.cartReducer.cartInfo)
-    const token = localStorage.getItem('token')
-      const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
-      const router = useRouter()
+  const cartInfo = useAppSelector((store) => store.cartReducer.cartInfo);
+  const token = useAppSelector((store) => store.userReducer.token);
+  const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
+  const router = useRouter();
 
-
-async function createCashOrder(values: {
+  async function createCashOrder(values: {
     shippingAddress: {
-        details: string;
-        phone: string;
-        city: string;
+      details: string;
+      phone: string;
+      city: string;
     };
-}) {
+  }) {
     const toastId = toast.loading("We are creating your order ....");
     try {
       const options = {
@@ -32,10 +31,9 @@ async function createCashOrder(values: {
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
-        
         toast.success("Your order has been created");
         setTimeout(() => {
-          router.push('/allorders')
+          router.push("/allorders");
         }, 2000);
       }
     } catch (error) {
@@ -45,14 +43,14 @@ async function createCashOrder(values: {
     }
   }
 
-// Online Payment
+  // Online Payment
   async function handleOnlinePayment(values: {
     shippingAddress: {
-        details: string;
-        phone: string;
-        city: string;
+      details: string;
+      phone: string;
+      city: string;
     };
-}) {
+  }) {
     try {
       const options = {
         url: `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartInfo?.cartId}?url=${location.origin}`,
@@ -64,7 +62,6 @@ async function createCashOrder(values: {
       };
       const { data } = await axios.request(options);
       if (data.status === "success") {
-        
         toast.loading("redirecting you to stripe");
         setTimeout(() => {
           location.href = data.session.url;
@@ -75,7 +72,7 @@ async function createCashOrder(values: {
     }
   }
 
-    const formik = useFormik({
+  const formik = useFormik({
     initialValues: {
       shippingAddress: {
         details: "",
@@ -89,9 +86,12 @@ async function createCashOrder(values: {
     },
   });
   return (
-     <>
+    <>
       <h1 className="mb-4 text-center md:text-start">Shipping Address</h1>
-      <form className="space-y-4 w-3/4 mx-auto md:w-full" onSubmit={formik.handleSubmit}>
+      <form
+        className="space-y-4 w-3/4 mx-auto md:w-full"
+        onSubmit={formik.handleSubmit}
+      >
         <div className="city">
           <input
             type="text"
@@ -141,5 +141,5 @@ async function createCashOrder(values: {
         </button>
       </form>
     </>
-  )
+  );
 }
