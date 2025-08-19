@@ -5,6 +5,12 @@ import "swiper/css";
 import ReactImageGallery from "react-image-gallery";
 import { Product } from "@/types/products.types";
 
+interface ProductDetailsPageProps {
+    params: {
+        productId: string;
+    };
+}
+
 async function getProduct(productId: string): Promise<Product> {
     const res = await fetch(
         `https://ecommerce.routemisr.com/api/v1/products/${productId}`,
@@ -29,9 +35,7 @@ async function getRelatedProducts(categoryId: string): Promise<Product[]> {
 
 export default async function ProductDetails({
     params,
-}: {
-    params: { productId: string };
-}) {
+}: ProductDetailsPageProps) {
     try {
         const product = await getProduct(params.productId);
         const relatedProducts = await getRelatedProducts(product.category._id);
