@@ -1,5 +1,3 @@
-
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { userState } from "@/types/user.types";
 import axios from "axios";
@@ -37,6 +35,11 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token); // ✅ Persist
       toast.success("Logged in successfully");
+    });
+    builder.addCase(login.rejected, (state, action) => {
+      if (action.meta.requestStatus === "rejected") {
+        toast.error("Login failed. You should sign up first");
+      }
     });
   },
 });
