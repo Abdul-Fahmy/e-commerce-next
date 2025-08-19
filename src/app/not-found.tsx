@@ -9,22 +9,11 @@ export default function NotFound() {
             </h1>
 
             <p>An error has occurred, to continue:</p>
-            <p>
-                * Return to our homepage.
-                <br />* Send us an e-mail about this error and try later.
-            </p>
-
+            <p>* Return to our homepage.</p>
             <nav className={styles.nav}>
                 <Link href="/" className={styles.link}>
-                    index
+                    Home
                 </Link>
-                &nbsp;|&nbsp;
-                <a
-                    href="mailto:abdelrhmanfahmy69@gmail.com"
-                    className={styles.link}
-                >
-                    webmaster
-                </a>
             </nav>
         </main>
     );
