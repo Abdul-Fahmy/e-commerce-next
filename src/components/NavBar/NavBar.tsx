@@ -36,7 +36,7 @@ export default function NavBar() {
   const handleLogOut = () => {
     localStorage.removeItem("token");
     dispatch(setToken(null));
-    // router.push("/login");
+    router.push("/login");
     toast.success("logged out successfully");
   };
 
@@ -44,16 +44,11 @@ export default function NavBar() {
     if (token) {
       dispatch(getCartInfo(token));
     }
-    
-    
   }, []);
-    useEffect(() => {
+  useEffect(() => {
     if (token) {
       dispatch(getWishListInfo(token));
-      console.log("ss");
     }
-    
-    
   }, []);
   return (
     <>

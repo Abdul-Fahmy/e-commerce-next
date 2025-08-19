@@ -2,6 +2,8 @@ import { ProductsState } from "@/types/products.types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+import toast from "react-hot-toast";
+
 const initialState: ProductsState = {
   products: null,
   product: null,
@@ -62,6 +64,12 @@ const productsSlice = createSlice({
 
     builder.addCase(getProductDetails.rejected, (state, action) => {
       console.log({ state, action });
+      if (action.meta.requestStatus === "rejected") {
+        toast.error("there is no product with this id");
+        setTimeout(() => {
+          window.location.href = "/product";
+        }, 1500);
+      }
     });
 
     builder.addCase(getRelatedProducts.fulfilled, (state, action) => {
