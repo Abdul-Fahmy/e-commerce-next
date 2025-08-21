@@ -8,7 +8,7 @@ cart : null,
 cartInfo: null
 }
 
-export const addProductToCart = createAsyncThunk('cart/addToCart', async ({productId , token}:{productId:string, token:string})=>{
+export const addProductToCart = createAsyncThunk('cart/addToCart', async ({productId , token}:{productId:string, token:string},{dispatch})=>{
     
     
 const options = {
@@ -21,6 +21,7 @@ const options = {
           productId,
         },
       };
+      dispatch(getCartInfo(token))
 const {data} = await axios.request(options)
 return data
 })
@@ -41,15 +42,15 @@ const {data} = await axios.request(options)
 return data
 })
 
-export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async ({productId , token}:{productId:string, token:string})=>{
+export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', async ({productId , token}:{productId:string, token:string},{dispatch})=>{
     const options = {
         url: `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-        method: "DEconstE",
+        method: "DELETE",
         headers: {
           token,
         },
     }
-
+dispatch(getCartInfo(token))
     const {data} = await axios.request(options)
     return data
 })
@@ -57,7 +58,7 @@ export const removeItemFromCart = createAsyncThunk('cart/removeItemFromCart', as
 export const clearCart = createAsyncThunk('cart/clearCart', async (token:string)=>{
     const options = {
         url: 'https://ecommerce.routemisr.com/api/v1/cart',
-        method:'DEconstE',
+        method:'DELETE',
         headers: {
             token,
         }

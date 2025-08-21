@@ -43,13 +43,10 @@ export default function NavBar() {
   useEffect(() => {
     if (token) {
       dispatch(getCartInfo(token));
-    }
-  }, []);
-  useEffect(() => {
-    if (token) {
       dispatch(getWishListInfo(token));
     }
   }, []);
+
   return (
     <>
       <div className="nav py-3 shadow bg-slate-100 fixed top-0 left-0 right-0 z-50">

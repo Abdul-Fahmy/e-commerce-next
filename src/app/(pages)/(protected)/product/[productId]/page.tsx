@@ -1,6 +1,5 @@
 "use client";
 import Card from "@/components/Card/Card";
-import Loading from "@/components/Loading/Loading";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import {
     getProductDetails,
@@ -12,6 +11,8 @@ import ReactImageGallery from "react-image-gallery";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { addProductToCart } from "@/store/feature/cart.slice";
+import RelatedProductsSkeleton from "@/components/RelatedProductsSkeleton/RelatedProductsSkeleton";
+import ProductSkeleton from "@/components/ProductSkeleton/ProductSkeleton";
 
 type Params = {
     productId: string;
@@ -83,7 +84,7 @@ export default function ProductDetails() {
                                     dispatch(addProductToCart({productId: productDetails.id,token}))
                                  }
                                 }}
-                                className="btn bg-green-600 hover:bg-green-700 transition-colors duration-300 font-semibold w-full"
+                                className="btn bg-green-600 hover:bg-green-700 transition-colors duration-300 font-semibold w-full cursor-pointer"
                             >
                                 Add To Cart
                             </button>
@@ -120,12 +121,12 @@ export default function ProductDetails() {
                                 ))}
                             </Swiper>
                         ) : (
-                            <Loading />
+                            <RelatedProductsSkeleton />
                         )}
                     </section>
                 </>
             ) : (
-                <Loading />
+                <ProductSkeleton />
             )}
         </>
     );

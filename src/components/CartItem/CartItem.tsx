@@ -59,7 +59,7 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
               dispatch(removeItemFromCart({productId:cartInfo.product.id, token}))
             }
           }}
-          className="bg-gray-100 p-3 rounded-md hover:bg-gray-200 transition-colors duration-300"
+          className="bg-gray-100 p-3 rounded-md hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
         >
           <i className="fa-solid fa-xmark"></i>
         </button>
