@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useAppDispatch, useAppSelector } from "@/hooks/store.hook";
 import { getCategories } from "@/store/feature/categories.slice";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CategorySlider() {
     const categories = useAppSelector((store)=> store.categoriesReducer.categories)
@@ -38,7 +39,8 @@ const dispatch = useAppDispatch()
           }} loop={true}>
             {categories.map((category) => (
               <SwiperSlide key={category._id}>
-                <div className="h-80">
+                <div className="h-80 cursor-pointer">
+<Link href={`categories/${category._id}`} >
                   <Image
                   style={{width:'100%', height:"100%", objectFit:'cover'}}
                   width={0}
@@ -49,7 +51,9 @@ const dispatch = useAppDispatch()
                     sizes="(max-width: 768px) 100vw, 33vw"
                     unoptimized
                   />
+                </Link>
                 </div>
+                
                 <h3>{category.name}</h3>
               </SwiperSlide>
             ))}
