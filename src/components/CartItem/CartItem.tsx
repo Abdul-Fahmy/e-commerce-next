@@ -12,10 +12,10 @@ export default function CartItem({cartInfo}:{cartInfo:CartProductItem}) {
       <div className="flex gap-2">
         <div className="card-item md:grow flex flex-wrap justify-between items-center bg-gray-100 py-4 px-6 rounded-lg gap-3">
           <Image
-          style={{width:'96px',height:"96px", objectFit:"cover",borderRadius:'50%', borderColor:"white", borderWidth:"4px"}}
+          style={{width:'96px',height:"96px", objectFit:"cover",borderRadius:'50%', borderColor:"white", borderWidth:"2px"}}
            width={0}
            height={0}
-           priority
+            sizes="(max-width: 768px) 100vw, 33vw"
             src={cartInfo.product.imageCover}
             alt={cartInfo.product.title}
           />
