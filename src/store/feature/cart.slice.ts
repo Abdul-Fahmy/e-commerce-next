@@ -21,8 +21,9 @@ const options = {
           productId,
         },
       };
-      dispatch(getCartInfo(token))
+      
 const {data} = await axios.request(options)
+dispatch(getCartInfo(token))
 return data
 })
 

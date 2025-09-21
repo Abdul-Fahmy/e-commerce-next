@@ -23,11 +23,11 @@ export default function Card({ productInfo }: { productInfo: Product }) {
           <Image
             src={productInfo.imageCover}
             alt="Product Image"
-            priority
             width={0}
             height={0}
             style={{ width: "100%", height: "auto", objectFit: "cover" }}
             sizes="(max-width: 768px) 100vw, 33vw"
+            loading="lazy"
           />
           <div className="layer group-hover/card:opacity-100 flex justify-center items-center gap-4 absolute w-full h-full left-0 top-0 bg-slate-400 bg-opacity-40 opacity-0 transition-opacity duration-300">
             {wishList === null ? (

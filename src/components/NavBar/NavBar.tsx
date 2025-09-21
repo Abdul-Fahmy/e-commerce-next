@@ -40,9 +40,14 @@ export default function NavBar() {
     toast.success("logged out successfully");
   };
 
-  useEffect(() => {
+   useEffect(() => {
     if (token) {
       dispatch(getCartInfo(token));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
       dispatch(getWishListInfo(token));
     }
   }, []);
